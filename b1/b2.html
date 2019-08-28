@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Form</title>
+	<link rel="stylesheet" type="text/css" href="./style.css">
+</head>
+<style type="text/css">
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	#wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		padding: 20px 40px 20px 40px;
+		border: 1px solid #333;
+	}
+	label {
+		margin-right: 10px;
+	}
+	label.title {
+		font-weight: 600;
+		min-width: 120px;
+		display: inline-block;
+	}
+
+	.form-group {
+		margin-bottom: 20px;
+	}
+	.form-select {
+		margin-right: 10px;
+	}
+	.form-control {
+		padding: 3px 5px;
+		width: 420px;
+	}
+	.form-control-sm {
+		padding: 2px 5px;
+	}
+	.btn {
+		padding: 4px 8px;
+	}
+
+	input[type="text"], input[type="password"] {
+		border: none !important;
+		padding: 10px;
+	}
+	.text-red {
+		color: red;
+	}
+	.align-items-center {
+		text-align: center;
+	}
+</style>
+<body>
+	<div id="wrapper">
+		<div class="container">
+			<h2 class="text-red align-items-center">Đăng kí tài khoản mới</h2>
+			<div class="main-form">
+				<form action="#" method="GET" name="main-form" id="main-form">
+
+					<div class="form-group">
+						<label for="username" class="title">Username</label>
+						<input class="form-control" type="text "name="username" id="username" placeholder="Enter user name" required="required">
+					</div>
+					<div class="form-group">
+						<label for="password" class="title">Password</label>
+						<input class="form-control" type="password "name="password" id="password" placeholder="Enter your password" required="required">
+					</div>
+					<div class="form-group">
+						<label for="re-password" class="title">Password again</label>
+						<input class="form-control" type="password "name="re-password" id="re-password" placeholder="Enter user name" required="required">
+					</div>
+					<div class="form-group">
+						<label for="picture" class="title">Picture</label>
+						<input type="file" name="picture" id="picture">	
+					</div>
+					<div class="form-group">
+						<label for="gender" class="title">Gender</label>
+						<label><input type="radio" name="gender" value="male"> Male</label>
+						<label><input type="radio" name="gender" value="female"> Female</label>
+						<label><input type="radio" name="gender" value="other"> Other</label>
+					</div>
+					<div class="form-group">
+						<label for="carrer" class="title">Career</label>
+						<select name="career" id="career" class="form-control-sm">
+							<option value="student">student</option>
+							<option value="student">teacher</option>
+							<option value="student">farmer</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="hobby" class="title">Hobby</label>
+						<div class="form-select">
+							<label><input type="checkbox" name="hobby" value="1">Read book	</label>
+						</div>
+						<div class="form-select">
+							<label><input type="checkbox" name="hobby" value="2">Listen music</label>
+						</div>
+						<div class="form-select">
+							<label><input type="checkbox" name="hobby" value="3">Play game</label>
+						</div>
+						<div class="form-select">
+							<label><input type="checkbox" name="hobby" value="4">Swim</label>
+						</div>
+						<div class="form-select">
+							<label><input type="checkbox" name="hobby" value="5">Go out</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<input type="submit" value="Regsiter" class="btn btn-primary">
+						<input type="reset" value="Reset" class="btn btn-danger">
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
