@@ -127,7 +127,7 @@ section.top {
 	left: 180px;
 	transition: .2s;	
 	font-size: 26px;
-	color: #541111;
+	color: #443d3d;
 	font-family: sans-serif;
 }
 
@@ -135,7 +135,7 @@ section.body {
 	margin-top: 50px;
 	
 }
-.box-model {
+/*.box-model {
 	/*border: 1px solid #fff;*/
 	margin-bottom: 30px;
 }
@@ -238,4 +238,4 @@ tr {
 }
 .show {
 	display: fixed;
-}
+}*/
