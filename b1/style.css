@@ -1,20 +1,39 @@
-th {
-	min-width: 120px;
-}
-td {
-	text-align: center;
+
+#wrapper {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 
+table {
+	border: 1px solid #333333;
+	border-collapse: collapse;
+}
+th {
+	min-width: 120px;
+	border: 1px solid #333333;
+}
+
+td {
+	text-align: center;
+	border: 1px solid #333333;	
+	background-color: #ccc;
+}
 tr td:first-child {
 	font-weight: 700;
 }
-/*
-table {
-	border-top: 2px solid blue;
-	border-radius: 5%;
-	padding-top: 10px;
+
+th, td {
+	padding: 4px 6px;
 }
 
+
 thead {
-	background: #333333
-}*/
+	background: #333333;
+	color: white;
+}
+
+tr td:hover {
+	background-color: #f2f2f2;
+}
