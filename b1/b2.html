@@ -3,122 +3,278 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Form</title>
-	<link rel="stylesheet" type="text/css" href="./style.css">
 </head>
-<style type="text/css">
+<style>
 	body {
 		margin: 0;
-		padding: 0;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+		sans-serif;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		background: #333333;
 	}
-	#wrapper {
+	
+	code {
+		font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+	}
+	
+	a {
+		text-decoration: none !important;
+	}
+
+	.box-form {
 		position: absolute;
 		top: 50%;
 		left: 50%;
 		transform: translate(-50%, -50%);
-		padding: 20px 40px 20px 40px;
-		border: 1px solid #333;
+		width: 600px;
+		padding: 40px;
+		box-sizing: border-box;
+		box-shadow: 0 15px 25px rgba(0, 0, 0, .8);
+		border-radius: 15px;
 	}
-	label {
-		margin-right: 10px;
-	}
-	label.title {
-		font-weight: 600;
-		min-width: 120px;
-		display: inline-block;
-	}
-
-	.form-group {
-		margin-bottom: 20px;
-	}
-	.form-select {
-		margin-right: 10px;
-	}
-	.form-control {
-		padding: 3px 5px;
-		width: 420px;
-	}
-	.form-control-sm {
-		padding: 2px 5px;
-	}
-	.btn {
-		padding: 4px 8px;
-	}
-
-	input[type="text"], input[type="password"] {
-		border: none !important;
-		padding: 10px;
-	}
-	.text-red {
-		color: red;
-	}
-	.align-items-center {
+	.box-form h2 {
+		margin: 0 0 30px;
+		padding: 0;
+		color: #fff;
 		text-align: center;
+		position: relative;
+		z-index: 1;
+	}
+	.box-form .inputBox, .form-group {
+		position: relative;
+		z-index: 1;
+	}
+	.box-form .inputBox input {
+		width: 100%;
+		padding: 10px 0;
+		font-size: 16px;
+		color: #fff;
+		margin-bottom: 30px;
+		border: none;
+		border-bottom: 1px solid #fff;
+		outline: none;
+		background: transparent;
+		letter-spacing: 1px;
+	}
+	.box-form .inputBox label {
+		padding: 10px 0;
+		font-size: 16px;
+		color: #fff;
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		pointer-events: none;
+		transition: .5s;
+		letter-spacing: 1px;
+	}
+	.form-group label {
+		padding: 10px 0;
+		font-size: 16px;
+		color: #fff;
+		transition: .5s;
+		letter-spacing: 1px;
+	}
+	.form-group > label {
+		width: 120px;
+		display: inline-block;
+		color: black;
+	}
+	.form-group select {
+		width: 120px;
+		padding: 4px 6px;
+		background: none;
+		outline: none;
+		border-color: #007bff;
+		border-radius: .25rem;
+		text-transform: capitalize;
+	}
+	.form-group input[type="file"] {
+		display: none;
+	}
+	.box-form .inputBox input:valid ~ label,
+	.box-form .inputBox input:focus ~ label {
+		top: -18px;
+		left: 0px;
+		font-size: 12px;
+		color: #03a9f4;
+	}
+	.box-form input[type="submit"] {
+		position: relative;
+		z-index: 1;
+		background: transparent;
+		border: none;
+		outline: none;
+		color: #fff;
+		background: #03a9f4;
+		padding: 10px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+	.box-form input[type="reset"] {
+		position: relative;
+		z-index: 1;
+		background: transparent;
+		border: none;
+		outline: none;
+		color: #fff;
+		color: #fff;
+		background-color: #dc3545;
+		border-color: #dc3545;;
+		padding: 10px 20px;
+		cursor: pointer;
+		border-radius: 5px;
+	}
+
+	.box-form:before {
+		content: '';
+		position: absolute;
+		top: 0px;
+		left: 0px; 
+		width: 50%;
+		height: 100%;
+		background: rgba(225, 225, 225, 0.1);
+	}
+	.box-form:after {
+		content: '';
+		position: absolute;
+		top: -5px;
+		left: -5px; 
+		right: -5px;
+		bottom: -5px;
+		background: linear-gradient(45deg, #645f5f, #4d359c);
+		pointer-events: none;
+		animation: animate 10s linear infinite;
+	}
+
+	@keyframes animate {
+		0% {
+			filter: blur(80px) hue-rotate(0deg);
+		}
+		100% {
+			filter: blur(80px) hue-rotate(360deg);
+		}
+	}
+	.wrapper {
+		/* position: relative; */
+		width: 100%;
+		background-color: #212020;
+	}
+
+	.btn {
+		display: inline-block;
+		font-weight: 400;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		user-select: none;
+		border: 1px solid transparent;
+		padding: .375rem .75rem;
+		font-size: 1rem;
+		line-height: 1.5;
+		border-radius: .25rem;
+		transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		cursor: pointer;
+	}
+
+	.btn-primary {
+		background-color: #007bff;
+		border-color: #007bff;
+		color: #fff;
+	}
+
+	.btn-primary:hover {
+		background-color: #007bff;
+		border-color: #007bff;
+		color: #fff;
+	}
+
+
+	.btn-outline {
+		background: transparent;
+	}
+
+	.btn-danger {
+		color: #fff;
+		background-color: #dc3545;
+		border-color: #dc3545;
 	}
 </style>
-<body>
-	<div id="wrapper">
-		<div class="container">
-			<h2 class="text-red align-items-center">Đăng kí tài khoản mới</h2>
-			<div class="main-form">
-				<form action="#" method="GET" name="main-form" id="main-form">
+<body> 
+<div class="wrapper">
+    <div class="box-form" style="width: 500">
+        <h2>Login</h2>
+        <form>
+            <div class="inputBox">
+                <input type="text" name="username" id="username" required/>
+                <label for="name">Username</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" name="password" id="password" required/>
+                <label for="password">Password</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" name="re-password" id="re-password" required/>
+                <label for="re-password">Password again</label>
+            </div>
+            <div class="form-group">
+                <input type="file" name="picture" id="picture"/>
+                <label for="re-password">Picture</label>
+                <button class="btn btn-primary btn-outline" id="choose-avatar">Choose file</button>
+            </div>
 
-					<div class="form-group">
-						<label for="username" class="title">Username</label>
-						<input class="form-control" type="text "name="username" id="username" placeholder="Enter user name" required="required">
-					</div>
-					<div class="form-group">
-						<label for="password" class="title">Password</label>
-						<input class="form-control" type="password "name="password" id="password" placeholder="Enter your password" required="required">
-					</div>
-					<div class="form-group">
-						<label for="re-password" class="title">Password again</label>
-						<input class="form-control" type="password "name="re-password" id="re-password" placeholder="Enter user name" required="required">
-					</div>
-					<div class="form-group">
-						<label for="picture" class="title">Picture</label>
-						<input type="file" name="picture" id="picture">	
-					</div>
-					<div class="form-group">
-						<label for="gender" class="title">Gender</label>
-						<label><input type="radio" name="gender" value="male"> Male</label>
-						<label><input type="radio" name="gender" value="female"> Female</label>
-						<label><input type="radio" name="gender" value="other"> Other</label>
-					</div>
-					<div class="form-group">
-						<label for="carrer" class="title">Career</label>
-						<select name="career" id="career" class="form-control-sm">
-							<option value="student">student</option>
-							<option value="student">teacher</option>
-							<option value="student">farmer</option>
-						</select>
-					</div>
-					<div class="form-group">
-						<label for="hobby" class="title">Hobby</label>
-						<div class="form-select">
-							<label><input type="checkbox" name="hobby" value="1">Read book	</label>
-						</div>
-						<div class="form-select">
-							<label><input type="checkbox" name="hobby" value="2">Listen music</label>
-						</div>
-						<div class="form-select">
-							<label><input type="checkbox" name="hobby" value="3">Play game</label>
-						</div>
-						<div class="form-select">
-							<label><input type="checkbox" name="hobby" value="4">Swim</label>
-						</div>
-						<div class="form-select">
-							<label><input type="checkbox" name="hobby" value="5">Go out</label>
-						</div>
-					</div>
-					<div class="form-group">
-						<input type="submit" value="Regsiter" class="btn btn-primary">
-						<input type="reset" value="Reset" class="btn btn-danger">
-					</div>
-
-				</form>
-			</div>
-		</div>
-	</div>
-	<p>Đặng Hữu Nghĩa - B1706729</p>
+            <div class="form-group">
+                <label for="gender" class="title">Gender</label>
+                <label style="color: #fff"><input type="radio" name="gender" value="male"> Male</label>
+                <label style="color: #fff"><input type="radio" name="gender" value="female"> Female</label>
+                <label style="color: #fff"><input type="radio" name="gender" value="other"> Other</label>
+            </div>
+            <div class="form-group">
+                <label for="carrer" class="title">Career</label>
+                <select name="career" id="career" class="form-control-sm">
+                    <option value="student">student</option>
+                    <option value="student">teacher</option>
+                    <option value="student">farmer</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hobby" class="title">Hobby</label>
+                <div style="display: flex;">
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="1">Read book	</label>
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="2">Listen music</label>
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="3">Code</label>
+                </div>
+                <div style="display: flex;">
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="4">Play game</label>
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="5">Swim</label>
+                    <label style="width: 200px;"><input type="checkbox" name="hobby" value="6">Go uot</label>
+                </div>
+            </div>
+            <div style="margin-top: 20px">
+                <input type="submit" name="" value="Submit" style="margin-right: 10px"/>
+                <input type="reset" name="" value="Reset"/>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- <p>Đặng Hữu Nghĩa - B1706729</p> -->
+<script>
+    window.onload = function () {
+        let btnChooseFile = document.getElementById("choose-avatar");
+        let fileIp = document.getElementById("picture");
+        if(btnChooseFile) {
+            btnChooseFile.addEventListener("click", () => {
+                fileIp.click();
+            })
+        }
+        if(fileIp) {
+            fileIp.addEventListener("change", () => {
+                btnChooseFile.innerHTML = fileIp.files[0].name;
+            })
+        }
+    }
+</script>
 </body>
 </html>
