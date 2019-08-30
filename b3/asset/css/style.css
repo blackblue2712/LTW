@@ -197,7 +197,7 @@ body {
 
 #show-message {
     width: 100%;
-    position: absolute;
+    position: fixed;
     bottom: 40px;
 }
 .wrap-mess {

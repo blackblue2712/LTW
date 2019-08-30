@@ -129,21 +129,24 @@
 								<div class="model-body">
 									<div class="model-body-left">
 										<div class="tab">
-											<label>
+											<label onclick="toggleModel('list')">
 												<input type="checkbox" name="overview" style="display: none">Overview
 											</label>
 										</div>
 										<div class="tab">
-											<label>
+											<label onclick="toggleModel('form')">
 												<input type="checkbox" name="contact" style="display: none">New +
 											</label>
 										</div>
 									</div>
 									<div class="model-body-right">
 										<div id="list">
-
+											<h3>List products</h3>
+											<div id="wrap-table">
+												<!-- AJAX LOADED -->
+											</div>
                                         </div>
-                                        <div id="form">
+                                        <div id="form" style="display: none">
                                             <h3>New product</h3>
                                             <form action="./controllers/product/product.php?role=add" method="POST" enctype="multipart/form-data">
                                                 <p>
@@ -166,7 +169,35 @@
                                                     <input type="submit" name="btnSubmit" value="Submit" class="btn btn-primary btn-outline">
                                                 </p>
                                             </form>
+										</div>
+										
+										<div id="form-edit" class="hide">
+                                            <h3>Edit product</h3>
+                                            <form action="./controllers/product/product.php?role=edit" method="POST" enctype="multipart/form-data">
+                                                <p>
+                                                    <label style="width: 120px; display: inline-block;">Name</label>
+                                                    <input type="text" name="name" required id="edit-name">
+                                                </p>
+                                                <p style="display: flex; align-items: center">
+                                                    <label style="width: 123px; display: inline-block;">Description</label><br>
+                                                    <textarea id="edit-description" name="description"></textarea>
+                                                </p>
+                                                <p>
+                                                    <label style="width: 120px; display: inline-block;">Price</label>
+                                                    <input type="number" name="price" required id="edit-price">
+                                                </p>
+                                                <p>
+                                                    <label style="width: 120px; display: inline-block;">Picture</label>
+                                                    <input type="file" name="picture">
+                                                </p>
+                                                <p>
+													<input type="hidden" name="id" id="edit-id">
+                                                    <input type="submit" name="btnSubmit" value="Submit" class="btn btn-primary btn-outline">
+                                                </p>
+											</form>
+											<span onclick="document.getElementById('form-edit').classList.remove('show');document.getElementById('form-edit').classList.add	('hide')" class="close-model">x</span>
                                         </div>
+
 									</div>
 								</div>
                             </div>
@@ -199,54 +230,6 @@
         <?php echo $mess?>
         
 	</div>
-	<script type="text/javascript">
-		let onOpenNewTab = uri => {
-			let win = window.open(uri, "_blank")
-			win.forcus();
-		}
-		let scrollToTop = () => {
-			window.scrollTo(0, 0)
-		}
-
-		window.onload = function() {
-
-			window.onscroll = () => {
-				let gotop = document.getElementById("scrollTop");
-				console.log(window.scrollY)
-				if(window.scrollY > 100) {
-					gotop.classList.add("show");
-					gotop.classList.remove("hide")
-				} else {
-					gotop.classList.add("hide");
-					gotop.classList.remove("show")
-				}
-			}
-        }
-        
-        changeUI = () => {
-            let btnSt = document.getElementById("btn-st");
-            let wSt = document.getElementById("setting");
-            if(btnSt.classList[0] === 'close') {
-                document.getElementById("setting-pic").src = "./icon/cogs-solid.svg";
-                btnSt.classList.remove("close");
-                btnSt.classList.add("open");
-                wSt.classList.add("setting-click");
-                wSt.classList.remove("setting-click-again");
-            } else {
-                document.getElementById("setting-pic").src = "./icon/cog-solid.svg";
-                btnSt.classList.remove("open");
-                btnSt.classList.add("close");
-                wSt.classList.remove("setting-click");
-                wSt.classList.add("setting-click-again");
-            }
-        }
-
-        signout = () => {
-            let check = window.confirm("Are you want to sign out?");
-            if(check) {
-                window.location = "./controllers/user/signout.php";
-            }
-        }
-	</script>
+	<script type="text/javascript" src="./asset/js/home.js"></script>
 </body>
 </html>
