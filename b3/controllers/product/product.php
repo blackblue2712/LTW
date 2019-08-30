@@ -20,13 +20,14 @@
     }
 
     if( isset($_POST["btnSubmit"]) && $_GET["role"] == "add") {
+        $picture = "";
         if($_FILES["picture"]["error"] == 0) {
             $file = $_FILES["picture"];
             $destination = PATH_UPLOAD_PRODUCT;
 
             $fileType = pathinfo($file["name"], PATHINFO_EXTENSION);    // need to check
             $fileSize = $file["size"];
-            $fileName = $file["name"];
+            $fileName = randomString().$file["name"];
             $fileTmp = $file["tmp_name"];
             $fileUpload = $destination . "/" .$fileName;
             
@@ -34,14 +35,14 @@
                 array_push($array_errors, $array_errors, "File up load fail");
                 return false;
             }else {
-                $picture = $fileName = $file["name"];
+                $picture = mysqli_real_escape_string($link, $fileName);
             }
         }
 
         // update database
-        $name = $_POST["name"];
-        $description = $_POST["description"];
-        $price = $_POST["price"];
+        $name = mysqli_real_escape_string($link, $_POST["name"]);
+        $description = mysqli_real_escape_string($link, $_POST["description"]);
+        $price = mysqli_real_escape_string($link, $_POST["price"]);
         $userId = $_SESSION["user"]["id"];
         $query = "INSERT INTO sanpham (tensp, chitietsp, giasp, hinhanhsp, idtv)
                     VALUES('".$name."', '".$description."', '".$price."', '".$picture."', '".$userId."')";
@@ -65,34 +66,37 @@
 
 
         // Check if exist file, then delete old file
-        $name           = $_POST["name"];
-        $price          = $_POST["price"];
-        $description    = $_POST["description"];
-        $id             = $_POST["id"];
+        $name           = mysqli_real_escape_string($link, $_POST["name"]);
+        $price          = mysqli_real_escape_string($link, $_POST["price"]);
+        $description    = mysqli_real_escape_string($link, $_POST["description"]);
+        $id             = mysqli_real_escape_string($link, $_POST["id"]);
         $picture        = $_POST["oldPicture"];
 
 
         $pictureInfo    = $_FILES["picture"]["error"] > 0 ? "" : $_FILES["picture"];
         $destination    = PATH_UPLOAD_PRODUCT;
+        if($pictureInfo != "") {
+            $fileType       = pathinfo($pictureInfo["name"], PATHINFO_EXTENSION);    // need to check
+            $fileSize       = $pictureInfo["size"];
+            $fileName       = randomString().$pictureInfo["name"];
+            $fileTmp        = $pictureInfo["tmp_name"];
+            $fileUpload     = $destination . "/" .$fileName;
 
-        $fileType       = pathinfo($pictureInfo["name"], PATHINFO_EXTENSION);    // need to check
-        $fileSize       = $pictureInfo["size"];
-        $fileName       = $pictureInfo["name"];
-        $fileTmp        = $pictureInfo["tmp_name"];
-        $fileUpload     = $destination . "/" .$fileName;
+            $oldPicture = $_POST["oldPicture"];
+            if(file_exists(PATH_UPLOAD_PRODUCT . "/" . $oldPicture)) {
+                unlink(PATH_UPLOAD_PRODUCT . "/" . $oldPicture);
+            }
+
+
+            if(!move_uploaded_file($fileTmp, $fileUpload)) {
+                array_push($array_errors, $array_errors, "File up load fail");
+                return false;
+            }else {
+                $picture = mysqli_real_escape_string($link, $fileName);
+            }
+        }
+
         
-
-        $oldPicture = $_POST["oldPicture"];
-        if(file_exists(PATH_UPLOAD_PRODUCT . "/" . $oldPicture)) {
-            unlink(PATH_UPLOAD_PRODUCT . "/" . $oldPicture);
-        }
-
-        if(!move_uploaded_file($fileTmp, $fileUpload)) {
-            array_push($array_errors, $array_errors, "File up load fail");
-            return false;
-        }else {
-            $picture = $fileName;
-        }
 
 
         $query      = "UPDATE sanpham SET tensp='".$name."', giasp='".$price."', chitietsp='".$description."', hinhanhsp='".$picture."' WHERE idsp='".$id."' ";
@@ -112,7 +116,7 @@
         if($result->num_rows) {
             $picture = $result->fetch_assoc()["hinhanhsp"];
             if($picture != "") {
-                unlink(PATH_UPLOAD_PRODUCT . "/" . $picture);
+                @unlink(PATH_UPLOAD_PRODUCT . "/" . $picture);
             }
         }
 

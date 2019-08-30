@@ -15,3 +15,12 @@ define("DB_HOST"                , "localhost");
 define("DB_USER"                , "root");
 define("DB_PASSWORD"            , "");
 define("DB_NAME"                , "Buoi3");
+
+
+
+function randomString($length = 5) {
+    $range = array_merge(range("a","z"), range("A","Z"), range(0,9));
+    shuffle($range);
+    $result = substr(implode("", $range), 0, $length);
+    return $result;
+}

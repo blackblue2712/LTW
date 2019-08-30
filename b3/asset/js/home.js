@@ -107,7 +107,7 @@ let getProducts = () => {
 
                 setTimeout( () => {
                     wrapList.innerHTML = xhtml;
-                }, 0);
+                },500);
             }
         }
     }
@@ -146,7 +146,7 @@ let onEdit = (type, id) => {
         }
     }
 
-    xmlhttp.open("GET", "./controllers/"+type+"/ed-product.php?role=getsingle&id="+id);
+    xmlhttp.open("GET", "./controllers/"+type+"/ed-product.php?role=getsingle&id="+id), true;
     xmlhttp.send();
 }
 
@@ -156,17 +156,18 @@ let onDelete = (type, id) => {
     if(check) {
         let xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function () {
-            let res = JSON.parse(this.response);
-            let mess = `<div id=show-message class="show-mess">
-                            <div class="wrap-mess">
-                                <div class="mess">
-                                    <p class="success">${res.message}</p>
-                                </div>
-                                <div class="close-mess" onclick="closeBox()">X</div>
-                            </div>
-                        </div>`;
-            document.getElementById("notifi").innerHTML = mess;
             if(this.status === 200 && this.readyState === 4) {
+                console.log(this.response)
+                let res = JSON.parse(this.response);
+                let mess = `<div id=show-message class="show-mess">
+                                <div class="wrap-mess">
+                                    <div class="mess">
+                                        <p class="success">${res.message}</p>
+                                    </div>
+                                    <div class="close-mess" onclick="closeBox()">X</div>
+                                </div>
+                            </div>`;
+                document.getElementById("notifi").innerHTML = mess;
                 if(ele) {
                     ele.parentElement.parentElement.classList.add("fadeout");
                     setTimeout( () => {
@@ -175,7 +176,7 @@ let onDelete = (type, id) => {
                 }
             }
         }
-        xmlhttp.open("GET", `./controllers/${type}/product.php?role=delete&id=${id}`);
+        xmlhttp.open("GET", `./controllers/${type}/product.php?role=delete&id=${id}`, true);
         xmlhttp.send();
     }
 }
@@ -201,7 +202,7 @@ let onDetail = (type, id) => {
     }
 
 
-    xmlhttp.open("GET", `./controllers/${type}/ed-product.php?role=getsingle&id=${id}`);
+    xmlhttp.open("GET", `./controllers/${type}/ed-product.php?role=getsingle&id=${id}`, true);
     xmlhttp.send();
 
     document.getElementById("form-detail").classList.add("show");

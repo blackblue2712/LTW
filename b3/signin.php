@@ -2,6 +2,10 @@
     session_start();
     include_once("./connect.php");
     
+    if(isset($_SESSION["user"])) {
+        header("location: ./home.php");
+    }
+
     $mess = "";
     if(isset($_SESSION["message"])) {
         $mess = '<div id=show-message class="show-mess">
@@ -15,6 +19,7 @@
 
         unset($_SESSION['message']);
     }
+
 ?>
 
 
@@ -38,9 +43,10 @@
                 <input type="password" name="password" id="password" required/>
                 <label for="password">Password</label>
             </div>
-            <div style="margin-top: 20px">
+            <div style="margin-top: 20px; display: flex; align-items: center">
                 <input type="submit" name="btnSubmit" value="Submit" style="margin-right: 10px" id="submit-form"/>
                 <input type="reset" name="" value="Reset"/>
+                <a style="flex-grow: 1; text-align: right; z-index: 9999; color: blue" href="./index.php">Register</a>
             </div>
         </form>
     </div>

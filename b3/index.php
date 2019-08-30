@@ -12,6 +12,9 @@
                     </div>
                 </div>';
 
+        if($_SESSION["message"]["type"] == "success") {
+            echo "<script>setTimeout( () => {window.location = './home.php'}, 2000)</script>";
+        }
         unset($_SESSION['message']);
     }
 ?>
@@ -74,9 +77,10 @@
                     <label style="width: 200px;"><input type="checkbox" name="hobby[]" value="Go uot">Go uot</label>
                 </div>
             </div>
-            <div style="margin-top: 20px">
+            <div style="margin-top: 20px; display: flex; align-items: center">
                 <input type="submit" name="btnSubmit" value="Submit" style="margin-right: 10px" id="submit-form"/>
                 <input type="reset" name="" value="Reset"/>
+                <a style="flex-grow: 1; text-align: right; z-index: 9999; color: blue" href="./signin.php">Login</a>
             </div>
         </form>
     </div>

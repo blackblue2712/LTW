@@ -53,7 +53,7 @@
             if(mysqli_query($link, $query)) {
                 // echo json_decode($mess);
             } else {
-                echo json_decode($array_errors);
+                echo json_encode($array_errors);
             }
         }
 
@@ -61,8 +61,21 @@
             $_SESSION["message"]["type"] = "error";
             $_SESSION["message"]["content"] = $array_errors[0];
         } else {
+            $id = 0;
+            $query = "SELECT id FROM thanhvien WHERE tendangnhap='".$username."'";
+            $result = mysqli_query($link, $query);
+            if($result->num_rows) {
+                $id = $result->fetch_assoc()["id"];
+            }
+
             $_SESSION["message"]["type"] = "success";
             $_SESSION["message"]["content"] = "Signin successfully";
+            $_SESSION["user"]["id"] = $id;
+            $_SESSION["user"]["username"] = $username;
+            $_SESSION["user"]["picture"] = $picture;
+            $_SESSION["user"]["gender"] = $gender;
+            $_SESSION["user"]["career"] = $career;
+            $_SESSION["user"]["hobbies"] = $hobbies;
         }
     }
 

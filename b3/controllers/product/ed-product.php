@@ -4,7 +4,7 @@
     include_once("../../connect.php");
     include_once("../../define.php");
     $array_errors = [];
-
+    $userId = $_SESSION["user"]["id"];
     // echo "<pre>";
     // print_r($_POST);
     // echo "</pre>";
@@ -17,7 +17,7 @@
 
     if(isset($_GET["role"]) && $_GET["role"] == "getsingle") {
         $id = $_GET["id"];
-        $query = "SELECT * FROM sanpham WHERE idsp=".$id;
+        $query = "SELECT * FROM sanpham WHERE idsp=".$id. " AND idtv='".$userId."'";
         $result = mysqli_query($link, $query);
         $products = [];
         if($result->num_rows > 0) {
@@ -33,7 +33,7 @@
             echo json_encode($products);
         }
     } else if(isset($_GET["role"]) && $_GET["role"] == "getall") {
-        $query = "SELECT * FROM sanpham";
+        $query = "SELECT * FROM sanpham WHERE idtv='".$userId."'";
         $result = mysqli_query($link, $query);
         $products = [];
         $i = 0;
