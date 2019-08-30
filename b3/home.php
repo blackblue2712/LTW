@@ -197,6 +197,33 @@
                                                 </p>
 											</form>
 											<span onclick="document.getElementById('form-edit').classList.remove('show');document.getElementById('form-edit').classList.add	('hide')" class="close-model">x</span>
+										</div>
+										
+										<div id="form-detail" class="hide">
+                                            <h3>Detail product</h3>
+                                            <div id="about" class="box-model">
+												<div class="model-header">
+													<h2 style="color: darkcyan;" id="detail-name"></h2>
+												</div>
+												<div class="model-body">
+													<div class="model-body-left">
+														
+													</div>
+													<div class="model-body-right">
+														<p><label style="width: 120px; display: inline-block;">ID</label><span id="detail-id"></span></p>
+														<p><label style="width: 120px; display: inline-block;">Price</label><span id="detail-price"></span></p>
+														<p><label style="width: 120px; display: inline-block;">Description</label><span id="detail-description"></span></p>
+														<p>
+															<label style="width: 120px; display: inline-block;">Picture</label><img id="detail-picture" src="" width=200>
+														</p>
+													</div>
+												</div>
+											</div>
+											<span 
+												onclick="document.getElementById('form-detail').classList.remove('show');document.getElementById('form-detail').classList.add('hide');Array.from(document.querySelectorAll(`img[key-detail`)).map( el => el.src='./icon/eye-slash-solid.svg')"
+												class="close-model">
+												x
+											</span>
                                         </div>
 
 									</div>
@@ -224,7 +251,7 @@
         <div id="setting">
             <span onclick="changeUI()" id="setting-icon"><img id="setting-pic" src="./icon/cog-solid.svg"></span>
             <div id="btn-st" class="close">
-                <span onclick="signout()" id="signout" title="Signout"><img id="setting-pic" src="./icon/reply-solid.svg"></span>
+                <span onclick="signout()" id="signout" title="Signout"><img id="setting-pic" src="./icon/power-off-solid.svg"></span>
             </div>
         </div>
 	</div>

@@ -84,18 +84,21 @@ let getProducts = () => {
                                 <td><img src="${URL_PIC+'/'+pr.picture}" width=70></td>
                                 <td><img src='./icon/edit.png' width=30 style="cursor: pointer" onclick="onEdit('product',${pr.idProduct})"></td>
                                 <td><img key=${pr.idProduct} src='./icon/delete.png' width=30 style="cursor: pointer" onclick="onDelete('product',${pr.idProduct})"></td>
+                                <td><img key-detail=${pr.idProduct} src="./icon/eye-slash-solid.svg" width=30 style="cursor: pointer" onclick="onDetail('product',${pr.idProduct})"></td>
                             </tr>`;
                 })
                 let xhtml = `<table class="table-list">
                                 <thead>
                                     <tr>
                                         <th style="width: 5%;">ID</th>
-                                        <th style="width: 40%;">Name</th>
-                                        <th style="width: 30%;">Price</th>
+                                        <th style="width: 38%;">Name</th>
+                                        <th style="width: 27%;">Price</th>
                                         <th style="width: 15%;">Picture</th>
                                         <th style="width: 5%;">Edit</th>
                                         <th style="width: 5%;">Delete</th>
-                                    </tr>
+                                        <th style="width: 5%;">Detail</th>
+                                        
+                                        </tr>
                                 </thead>
                                 <tbody>
                                     ${xpr}
@@ -149,7 +152,6 @@ let onEdit = (type, id) => {
 
 let onDelete = (type, id) => {
     let ele = document.querySelector(`img[key='${id}']`)
-    console.log(ele)
     let check = window.confirm("Are you sure to delete this product?");
     if(check) {
         let xmlhttp = new XMLHttpRequest();
@@ -178,3 +180,30 @@ let onDelete = (type, id) => {
     }
 }
 
+let onDetail = (type, id) => {
+    let ele = document.querySelector(`img[key-detail='${id}']`);
+    let eles = Array.from(document.querySelectorAll(`img[key-detail`));
+    eles.map( el => el.src="./icon/eye-slash-solid.svg")
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if(this.status === 200 && this.readyState === 4) {
+            let res = JSON.parse(this.response);
+            document.getElementById("detail-id").innerHTML = res.idProduct;
+            document.getElementById("detail-name").innerHTML = res.name;
+            document.getElementById("detail-price").innerHTML = res.price;
+            document.getElementById("detail-description").innerHTML = res.description;
+            document.getElementById("detail-picture").src = res.URL_PIC + "/" + res.picture;
+            if(ele) {
+                ele.src = "./icon/eye-solid.svg";
+            }
+        }
+    }
+
+
+    xmlhttp.open("GET", `./controllers/${type}/ed-product.php?role=getsingle&id=${id}`);
+    xmlhttp.send();
+
+    document.getElementById("form-detail").classList.add("show");
+    document.getElementById("form-detail").classList.remove("hide");
+}
