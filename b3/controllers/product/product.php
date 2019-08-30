@@ -14,7 +14,10 @@
     // print_r($_GET);
     // echo "</pre>";
 
-
+    if(!isset($_SESSION["user"])) {
+        header("location: ../../");
+        return;
+    }
 
     if( isset($_POST["btnSubmit"]) && $_GET["role"] == "add") {
         if($_FILES["picture"]["error"] == 0) {
@@ -58,12 +61,41 @@
         }
         header("location: ../../home.php");
     } else if(isset($_GET["role"]) && $_GET["role"] == "edit") {
+        
+
+
+        // Check if exist file, then delete old file
         $name           = $_POST["name"];
         $price          = $_POST["price"];
         $description    = $_POST["description"];
         $id             = $_POST["id"];
+        $picture        = $_POST["oldPicture"];
 
-        $query      = "UPDATE sanpham SET tensp='".$name."', giasp='".$price."', chitietsp='".$description."' WHERE idsp='".$id."' ";
+
+        $pictureInfo    = $_FILES["picture"]["error"] > 0 ? "" : $_FILES["picture"];
+        $destination    = PATH_UPLOAD_PRODUCT;
+
+        $fileType       = pathinfo($pictureInfo["name"], PATHINFO_EXTENSION);    // need to check
+        $fileSize       = $pictureInfo["size"];
+        $fileName       = $pictureInfo["name"];
+        $fileTmp        = $pictureInfo["tmp_name"];
+        $fileUpload     = $destination . "/" .$fileName;
+        
+
+        $oldPicture = $_POST["oldPicture"];
+        if(file_exists(PATH_UPLOAD_PRODUCT . "/" . $oldPicture)) {
+            unlink(PATH_UPLOAD_PRODUCT . "/" . $oldPicture);
+        }
+
+        if(!move_uploaded_file($fileTmp, $fileUpload)) {
+            array_push($array_errors, $array_errors, "File up load fail");
+            return false;
+        }else {
+            $picture = $fileName;
+        }
+
+
+        $query      = "UPDATE sanpham SET tensp='".$name."', giasp='".$price."', chitietsp='".$description."', hinhanhsp='".$picture."' WHERE idsp='".$id."' ";
         
         if(mysqli_query($link, $query)) {
             $array_mess["message"] = "Update success";
@@ -73,6 +105,20 @@
         }
 
         header("location: ../../home.php");
-    }
+    } else if(isset($_GET["role"]) && $_GET["role"] == "delete") {
+        $id = $_GET["id"];
+        $query = "SELECT hinhanhsp FROM sanpham WHERE idsp='".$id."'";
+        $result = mysqli_query($link, $query);
+        if($result->num_rows) {
+            $picture = $result->fetch_assoc()["hinhanhsp"];
+            if($picture != "") {
+                unlink(PATH_UPLOAD_PRODUCT . "/" . $picture);
+            }
+        }
 
-    
+        $queryDelete = "DELETE FROM sanpham WHERE idsp='".$id."'";
+        if(mysqli_query($link, $queryDelete)) {
+            $array_mess["message"] = 'Product with id '.$id.' was deleted';
+            echo json_encode($array_mess);
+        }
+    }

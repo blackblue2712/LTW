@@ -317,12 +317,27 @@ tr
     justify-content: center;
     line-height: 50px;
     transition: .5s;
+    opacity: 1;
+    
+}
+#setting::after {
+   content: '';
+   position: absolute;
+   top: -5px;
+   left: -5px; 
+   right: -5px;
+   bottom: -5px;
+   background: linear-gradient(45deg, #fbfbfb, yellow);
+   pointer-events: none;
+   animation: animate 5s linear infinite;
+   opacity: 1;
 }
 
 
 .setting-click {
     background: #24262f;
     border-color: #1B91DA;
+    opacity: 1 !important;
     animation: show-setting .2s linear;
 }
 .setting-click-again {
@@ -347,6 +362,17 @@ tr
     background: #24262f;
     border-color: #1B91DA;
     border-radius: 50%;
+}
+
+@keyframes animate {
+   0% {
+      opacity: 1;
+      filter: blur(80px) hue-rotate(0deg);
+   }
+   100% {
+      filter: blur(80px) hue-rotate(360deg);
+      opacity: .6;
+   }
 }
 
 @keyframes show-setting{
@@ -608,4 +634,20 @@ label.active {
 }
 .close-model:hover {
    background: #24262f;
+}
+
+.fadeout {
+   opacity: 0;
+   transition: .5s;
+   animation: fadeout .5 linear;
+}
+
+@keyframes fadeout {
+   0% {
+      opacity: 1;
+      display: block;
+   }
+   100% {
+      opacity: 0;
+   }
 }

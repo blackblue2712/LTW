@@ -27,6 +27,7 @@ window.onload = function() {
         }
     }
     closeBox = () => {
+        let boxShowMes = document.getElementById("show-message");
         boxShowMes.classList.add("strict-hide");
     }
 
@@ -82,7 +83,7 @@ let getProducts = () => {
                                 <td>${pr.price}</td>
                                 <td><img src="${URL_PIC+'/'+pr.picture}" width=70></td>
                                 <td><img src='./icon/edit.png' width=30 style="cursor: pointer" onclick="onEdit('product',${pr.idProduct})"></td>
-                                <td><img src='./icon/delete.png' width=30 style="cursor: pointer" onclick="onDelete('product',${pr.idProduct})"></td>
+                                <td><img key=${pr.idProduct} src='./icon/delete.png' width=30 style="cursor: pointer" onclick="onDelete('product',${pr.idProduct})"></td>
                             </tr>`;
                 })
                 let xhtml = `<table class="table-list">
@@ -102,8 +103,8 @@ let getProducts = () => {
                             </table>`;
 
                 setTimeout( () => {
-                    wrapList.innerHTML = xhtml
-                }, 1000);
+                    wrapList.innerHTML = xhtml;
+                }, 0);
             }
         }
     }
@@ -138,6 +139,7 @@ let onEdit = (type, id) => {
             document.getElementById("edit-price").value = data.price;
             document.getElementById("edit-description").innerHTML = data.description;
             document.getElementById("edit-id").value = data.idProduct;
+            document.getElementById("edit-picture").value = data.picture;
         }
     }
 
@@ -146,5 +148,33 @@ let onEdit = (type, id) => {
 }
 
 let onDelete = (type, id) => {
-    console.log(type, id)
+    let ele = document.querySelector(`img[key='${id}']`)
+    console.log(ele)
+    let check = window.confirm("Are you sure to delete this product?");
+    if(check) {
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function () {
+            let res = JSON.parse(this.response);
+            let mess = `<div id=show-message class="show-mess">
+                            <div class="wrap-mess">
+                                <div class="mess">
+                                    <p class="success">${res.message}</p>
+                                </div>
+                                <div class="close-mess" onclick="closeBox()">X</div>
+                            </div>
+                        </div>`;
+            document.getElementById("notifi").innerHTML = mess;
+            if(this.status === 200 && this.readyState === 4) {
+                if(ele) {
+                    ele.parentElement.parentElement.classList.add("fadeout");
+                    setTimeout( () => {
+                        ele.parentElement.parentElement.style.display = "none";
+                    }, 1000)
+                }
+            }
+        }
+        xmlhttp.open("GET", `./controllers/${type}/product.php?role=delete&id=${id}`);
+        xmlhttp.send();
+    }
 }
+

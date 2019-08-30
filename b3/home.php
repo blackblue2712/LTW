@@ -69,7 +69,7 @@
 							<a class="nav-item" href="#about">About</a>
 						</div>
 						<div>
-							<a class="nav-item" href="#timeline">Timeline</a>
+							<a class="nav-item" href="#product">Product</a>
 						</div>
 						<div>
 							<a class="nav-item" href="#exercise">Exercise</a>
@@ -192,6 +192,7 @@
                                                 </p>
                                                 <p>
 													<input type="hidden" name="id" id="edit-id">
+													<input type="hidden" name="oldPicture" id="edit-picture">
                                                     <input type="submit" name="btnSubmit" value="Submit" class="btn btn-primary btn-outline">
                                                 </p>
 											</form>
@@ -226,9 +227,9 @@
                 <span onclick="signout()" id="signout" title="Signout"><img id="setting-pic" src="./icon/reply-solid.svg"></span>
             </div>
         </div>
-
-        <?php echo $mess?>
-        
+	</div>
+	<div id="notifi">
+		<?php echo $mess?>
 	</div>
 	<script type="text/javascript" src="./asset/js/home.js"></script>
 </body>
