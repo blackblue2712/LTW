@@ -141,7 +141,7 @@
 									</div>
 									<div class="model-body-right">
 										<div id="list">
-											<h3>List products <input style="margin-left: 20px" type="text" placeholder="Type to find ..."></h3>
+											<h3>List products <input style="margin-left: 20px" type="text" placeholder="Type to find ..." oninput="ajaxFind(value)"></h3>
 											<div id="wrap-table">
 												<!-- AJAX LOADED -->
 											</div>
