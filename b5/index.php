@@ -87,6 +87,8 @@
     </div>
 </div>
 <div id="requirements">
+    <span>Username start with a character (length between 6 to 15)</span>
+    <!-- <p>Passowrd only have number and character, not special char (length between 6 to 15)</p> -->
 </div>
 <?php echo $mess?>
 

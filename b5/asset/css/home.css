@@ -307,7 +307,7 @@ tr
 
 .show
 {
-   display:fixed !important;
+   display: block !important;
 }
 
 @keyframes ani {
@@ -691,3 +691,16 @@ label.active {
 }
 
 
+#requirements, #popup {
+   position: fixed;
+    top: 198px;
+    right: 20px;
+    width: 245px;
+    padding: 10px;
+    z-index: 9999;
+    background: #141212;
+    color: white;
+    border-radius: 5px;
+    opacity: .8;
+    display: none;
+}
