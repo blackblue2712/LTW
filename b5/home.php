@@ -1,7 +1,6 @@
 <?php
     session_start();
     include("define.php");
-
     // echo "<pre>";
     // print_r($_SESSION);
     // echo "</pre>";
@@ -237,7 +236,7 @@
 			</div>
 
 			<div class="footer" style="text-align: center;">
-				Liars &copy; 2019	
+				Liars &copy; 2019
 				<div class="container">
 					
 				</div>

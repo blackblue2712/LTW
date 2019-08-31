@@ -29,7 +29,7 @@
                 $products["idProduct"] = $row["idsp"];
                 $products["idUser"] = $row["idtv"];
             }
-            $products["URL_PIC"] = URL_UPLOAD_PRODUCT;
+            $products["URL_PIC"] = "../b3/". str_replace("./", "",URL_UPLOAD_PRODUCT);
             echo json_encode($products);
         }
     } else if(isset($_GET["role"]) && $_GET["role"] == "getall") {
@@ -47,7 +47,7 @@
                 $products[$i]["idUser"] = $row["idtv"];
                 $i++;
             }
-            $products[$i]["URL_PIC"] = URL_UPLOAD_PRODUCT;
+            $products[$i]["URL_PIC"] = "../b3/". str_replace("./", "",URL_UPLOAD_PRODUCT);
             echo json_encode($products);
         }else {
             array_push($array_errors, "Can not fetch product");
@@ -68,7 +68,7 @@
                 $products[$i]["idUser"] = $row["idtv"];
                 $i++;
             }
-            $products[$i]["URL_PIC"] = URL_UPLOAD_PRODUCT;
+            $products[$i]["URL_PIC"] = "../b3/". str_replace("./", "",URL_UPLOAD_PRODUCT);
             echo json_encode($products);
         }else {
             array_push($array_errors, "Can not fetch product");

@@ -76,7 +76,6 @@ let getProducts = () => {
                 delete(res[res.length -1]);
                 let xpr = "";
                 res.map( (pr, index) => {
-                    console.log(URL_PIC+'/'+pr.picture)
                     // let description = pr.description.length > 100 ? pr.description.substr(0, 100) + "..." : pr.description;
                     xpr += `<tr class="odd">
                                 <td>${pr.idProduct}</td>
@@ -152,6 +151,7 @@ let onEdit = (type, id) => {
 }
 
 let onDelete = (type, id) => {
+    // alert("Delete disabled, go to /b3/home to add/edit/delete");
     let ele = document.querySelector(`img[key='${id}']`)
     let check = window.confirm("Are you sure to delete this product?");
     if(check) {

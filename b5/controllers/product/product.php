@@ -37,6 +37,7 @@
             }else {
                 $picture = mysqli_real_escape_string($link, $fileName);
             }
+
         }
 
         // update database
@@ -62,9 +63,6 @@
         }
         header("location: ../../home.php");
     } else if(isset($_GET["role"]) && $_GET["role"] == "edit") {
-        
-
-
         // Check if exist file, then delete old file
         $name           = mysqli_real_escape_string($link, $_POST["name"]);
         $price          = mysqli_real_escape_string($link, $_POST["price"]);
@@ -84,7 +82,7 @@
 
             $oldPicture = $_POST["oldPicture"];
             if(file_exists(PATH_UPLOAD_PRODUCT . "/" . $oldPicture)) {
-                unlink(PATH_UPLOAD_PRODUCT . "/" . $oldPicture);
+                @unlink(PATH_UPLOAD_PRODUCT . "/" . $oldPicture);
             }
 
 
