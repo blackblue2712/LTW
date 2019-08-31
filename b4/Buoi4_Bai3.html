@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head> 
+	<title> Lập trình web (CT428) </title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+</head>	
+<body>
+<div id="wrap">
+	<div id="title">
+		<h1>Bài 3 - Buổi 4</h1>
+	</div> <!--end div title-->
+	<div id="menu">
+		<!-- chèn menu của sinh viên vào-->
+	</div> <!--end div menu-->
+	<div id="content">
+		<!--Nội dung trang web-->
+		<h1>Quảng cáo</h1>
+		<div style="text-align: center">
+			<a href="http://www.hp.com" target="_blank" id="link">
+				<img id="laptopImg" name="laptopImg" src="img/hp.jpg" height="300" width="300" onmouseover="pauseTimer()" onmouseout="activateTimer()" />
+			</a>
+		</div>
+		
+		<p class="requirements">Yêu cầu:<br/>
+		Có 4 hình ảnh của 4 công ty muốn quảng cáo đính kèm. Đầu tiên hiển thị một hình, cứ 2 giây thì thay hình ảnh khác, xoay vòng giữa 4 hình ảnh đã cho.<br/>
+		Khi người dùng rê chuột lên hình nào thì hình đó dừng lại không thay đổi để người dùng đọc thông tin về quảng cáo đó, 
+		khi nào người dùng rê chuột khỏi thì 2 giây sau mới cho hiển thị hình tiếp theo.<br/>
+		Khi người dùng click vào hình nào thì liên kết đến website của hình đó ở cửa sổ mới.
+		</p>
+	</div> <!--end div content-->
+	<div id="footer">
+		<p>Họ tên SV: Đặng Hữu Nghĩa <br/> Email: nghiab1706729@student.ctu.edu.vn</p>
+	</div> <!--end div footer-->
+</div> <!--end div wrap-->
+
+<script>
+	let IMAGE_PATHS = [];
+	let IMAGE_SITE = [];
+	let t = null;
+	let currentPos = 0;
+	IMAGE_PATHS[0] = "img/hp.jpg";
+	IMAGE_PATHS[1] = "img/dell.jpg";
+	IMAGE_PATHS[2] = "img/acer.jpg";
+	IMAGE_PATHS[3] = "img/asus.jpg";
+	IMAGE_SITE[0] = "https://www8.hp.com/us/en/home.html";
+	IMAGE_SITE[1] = "http://www1.ap.dell.com/content/default.aspx?c=vn&l=en&s=&s=gen&~ck=cr";
+	IMAGE_SITE[2] = "https://www.acer.com/ac/vi/VN/content/home";
+	IMAGE_SITE[3] = "https://www.asus.com/vn/";
+	
+	const init = () => {
+		let imgElement = document.getElementById("laptopImg");
+
+		t = setInterval( () => {
+			if(currentPos === IMAGE_PATHS.length - 1) currentPos = -1;
+			currentPos++;
+			imgElement.parentElement.href = IMAGE_SITE[currentPos];
+			imgElement.src = IMAGE_PATHS[currentPos];
+			console.log("run...");
+			
+		}, 2000);
+	}
+
+	const pauseTimer = () => {
+		clearInterval(t);
+	}
+
+	const activateTimer = () => {
+		init();
+	}
+
+	window.onload = () =>  {
+		
+		init();
+	}
+</script>
+
+</body>
+</html>

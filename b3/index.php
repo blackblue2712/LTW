@@ -67,7 +67,7 @@
             <div class="form-group">
                 <label for="hobby" class="title">Hobby</label>
                 <div style="display: flex;">
-                    <label style="width: 200px;"><input type="checkbox" name="hobby[]" value="Read book">Read book	</label>
+                    <label style="width: 200px;"><input type="checkbox" name="hobby[]" value="Read book" checked="checked">Read book	</label>
                     <label style="width: 200px;"><input type="checkbox" name="hobby[]" value="Listen music">Listen music</label>
                     <label style="width: 200px;"><input type="checkbox" name="hobby[]" value="Code">Code</label>
                 </div>

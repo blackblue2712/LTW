@@ -622,6 +622,7 @@ label.active {
    /* overflow: scroll; */
    overflow-x: hidden;
    height: 400px;
+   width: 800px;
 }
 
 #form-edit input[type="text"], #form-edit input[type="number"], #form-edit textarea {

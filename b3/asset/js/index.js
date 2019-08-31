@@ -16,6 +16,9 @@ window.onload = function () {
     let btnSubmit = document.getElementById("submit-form");
     btnSubmit.addEventListener("click", event => {
         event.preventDefault();
+
+        let arr_errors  = [];
+
         let username = document.getElementById("username").value;
         let password = document.getElementById("password").value;
         let rePassword = document.getElementById("re-password").value;
@@ -27,16 +30,42 @@ window.onload = function () {
             Array.from(hobbyNode).map( hb => {
                 hobbies.push(hb.value);
             })
+        } else {
+            arr_errors.push("Select one hobby");
+        }
+        let pattUs = /^[a-zA-z]+.*/g;
+        let pattPs = ['[', ']', "'", '"', '/', '\\', '*', '$', '&', '^', '`', '~', '|', '%'];
+        // console.log(username, pattUs.test(username))
+
+        // if(password === "" || username === "") {
+        //     arr_errors.push('You must enter username and password')
+        // }
+
+        // if(password !== rePassword) {
+        //     arr_errors.push("Password and re-password are not match");
+        // }
+
+        // if(username.length < 5 || username.length > 15) {
+        //     arr_errors.push("Username too long or too short!");
+        // }
+
+        // if(password.length < 5 || password.length > 15) {
+        //     arr_errors.push("Password too long or too short!");
+        // }
+
+        // let str = pattUs.test(username) == true ? "pass" : "not-pass";
+        // if(str !== "pass") {
+        //     arr_errors.push("Username must start with character!");
+        // }
+        
+        if(pattPs.indexOf(password) !== -1) {
+            arr_errors.push("Password only have number and character, not special character");
         }
 
-        if(password !== "" && username !== "") {
-            if(password !== rePassword) {
-                alert("Password and re-password are not match");
-            } else {
-                document.getElementById("login-form").submit();
-            }
+        if(arr_errors.length === 0) {
+            // document.getElementById("login-form").submit();
         } else {
-            alert("You must enter username and password");
+            alert(arr_errors[0]);
         }
     })
 
