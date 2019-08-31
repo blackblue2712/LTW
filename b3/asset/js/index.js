@@ -34,36 +34,35 @@ window.onload = function () {
             arr_errors.push("Select one hobby");
         }
         let pattUs = /^[a-zA-z]+.*/g;
-        let pattPs = ['[', ']', "'", '"', '/', '\\', '*', '$', '&', '^', '`', '~', '|', '%'];
-        // console.log(username, pattUs.test(username))
+        let pattPs = /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/;
 
-        // if(password === "" || username === "") {
-        //     arr_errors.push('You must enter username and password')
-        // }
+        if(password === "" || username === "") {
+            arr_errors.push('You must enter username and password')
+        }
 
-        // if(password !== rePassword) {
-        //     arr_errors.push("Password and re-password are not match");
-        // }
+        if(password !== rePassword) {
+            arr_errors.push("Password and re-password are not match");
+        }
 
-        // if(username.length < 5 || username.length > 15) {
-        //     arr_errors.push("Username too long or too short!");
-        // }
+        if(username.length < 5 || username.length > 15) {
+            arr_errors.push("Username too long or too short!");
+        }
 
-        // if(password.length < 5 || password.length > 15) {
-        //     arr_errors.push("Password too long or too short!");
-        // }
+        if(password.length < 5 || password.length > 15) {
+            arr_errors.push("Password too long or too short!");
+        }
 
-        // let str = pattUs.test(username) == true ? "pass" : "not-pass";
-        // if(str !== "pass") {
-        //     arr_errors.push("Username must start with character!");
-        // }
-        
-        if(pattPs.indexOf(password) !== -1) {
+        let str = pattUs.test(username) == true ? "pass" : "not-pass";
+        if(str !== "pass") {
+            arr_errors.push("Username must start with character!");
+        }
+        console.log(password.match(pattPs))
+        if(password.match(pattPs) !== null) {
             arr_errors.push("Password only have number and character, not special character");
         }
 
         if(arr_errors.length === 0) {
-            // document.getElementById("login-form").submit();
+            document.getElementById("login-form").submit();
         } else {
             alert(arr_errors[0]);
         }
@@ -83,4 +82,27 @@ window.onload = function () {
     closeBox = () => {
         boxShowMes.classList.add("strict-hide");
     }
+
+    document.getElementById("login-form").onclick = () => {
+        let ele = document.getElementById('requirements');
+        ele.classList.remove("show");
+        ele.classList.add("hide");
+    }
+}
+
+let onWrite = (event, text) => {
+    setTimeout( () => {
+        let ele = document.getElementById('requirements');
+        ele.classList.add("show");
+        ele.classList.remove("hide");
+        ele.style.top = event.clientY - ele.offsetHeight/2 + "px";
+        ele.style.left = event.clientX + ele.offsetWidth/2 + "px";
+        ele.innerHTML = text;
+    }, 1)
+}
+
+let onBlur = () => {
+    let ele = document.getElementById('requirements');
+    ele.classList.remove("show");
+    ele.classList.add("hide");
 }

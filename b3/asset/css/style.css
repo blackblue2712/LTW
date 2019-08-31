@@ -261,3 +261,27 @@ body {
         opacity: 0;
     }
 }
+
+#requirements {
+    position: fixed;
+     top: 198px;
+     right: 20px;
+     width: 245px;
+     padding: 10px;
+     z-index: 9999;
+     background: #141212;
+     color: white;
+     border-radius: 5px;
+     opacity: .8;
+     display: none;
+ }
+
+ .hide
+{
+   display:none !important;
+}
+
+.show
+{
+   display: block !important;
+}

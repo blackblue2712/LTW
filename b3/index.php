@@ -33,11 +33,11 @@
         <h2>Register</h2>
         <form name="login-form" id="login-form" action="./controllers/user/register.php" method="POST" enctype="multipart/form-data">
             <div class="inputBox">
-                <input type="text" name="username" id="username" required/>
+                <input type="text" name="username" id="username" required onblur="onBlur()" onclick="onWrite(event, 'Username start with a character (length between 6 to 15)')"/>
                 <label for="name">Username</label>
             </div>
             <div class="inputBox">
-                <input type="password" name="password" id="password" required/>
+                <input type="password" name="password" id="password" required onclick="onWrite(event, 'Passowrd only have number and character, not special char (length between 6 to 15)')"/>
                 <label for="password">Password</label>
             </div>
             <div class="inputBox">
@@ -82,10 +82,14 @@
                 <input type="reset" name="" value="Reset"/>
                 <a style="flex-grow: 1; text-align: right; z-index: 9999; color: blue" href="./signin.php">Login</a>
             </div>
+            
         </form>
     </div>
 </div>
-
+<div id="requirements">
+    <span>Username start with a character (length between 6 to 15)</span>
+    <!-- <p>Passowrd only have number and character, not special char (length between 6 to 15)</p> -->
+</div>
 <?php echo $mess?>
 
 <!-- <p>Đặng Hữu Nghĩa - B1706729</p> -->
