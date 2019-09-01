@@ -307,7 +307,7 @@ tr
 
 .show
 {
-   display:fixed !important;
+   display: block !important;
 }
 
 @keyframes ani {
@@ -330,7 +330,7 @@ tr
     font-size: 50px;
     width: 40px;
     height: 40px;
-    border: 1px solid #ccc;
+    border: 1px solid #1B91DA;
     border-radius: 50%;
     display: flex;
     align-content: center;
@@ -355,8 +355,8 @@ tr
 
 
 .setting-click {
-    background: #24262f;
-    border-color: #1B91DA;
+    background: #aeaeae;
+    border: 1px solid #1B91DA;
     opacity: 1 !important;
     width: 50px !important;
     height: 50px !important;
@@ -371,10 +371,10 @@ tr
     width: 100%;
 }
 
-#btn-st.close {
+.btn-st.close {
     display: none;
 }
-#btn-st.open {
+.btn-st.open {
     display: block;
     width: 100%;
     position: absolute;
@@ -382,9 +382,17 @@ tr
     top: 61px;
 }
 
-#btn-st:hover img {
-    background: #24262f;
-    border-color: #1B91DA;
+.btn-st img {
+   border: 1px solid #1B91DA;
+   border-radius: 50%;
+   padding: 2px;
+   width: 36px;
+   height: 36px;
+   transition: .5s;
+}
+
+.btn-st:hover img {
+    background: #aeaeae;
     border-radius: 50%;
 }
 
@@ -651,6 +659,18 @@ label.active {
       top: 50%;
    }
 }
+@keyframes hideModelCenter {
+   0% {
+      opacity: 1;
+      display: block;
+      top: 50%;
+   }
+   100% {
+      opacity: 0;
+      display: none;
+      top: 40%;
+   }
+}
 
 .close-model {
    position: absolute;
@@ -691,3 +711,199 @@ label.active {
 }
 
 
+* MODAL CONFIG FONT */
+.modal-config-font{
+    padding: 20px 40px;
+    position: fixed;
+    z-index: 100;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    background: #F9F9F9;
+    font-family: 'Kaushan Script', cursive;
+    opacity: 0;
+}
+.modal-config-font .modal-config-header{
+    font-weight: bold;
+    font-family: 'Kaushan Script', cursive;
+    color: #1b809e;
+}
+.modal-config-font .modal-config-body label{
+    color: lightslategray;
+    line-height:35px;
+    margin-right: auto;
+    
+}
+h1,h2.h3.h4,h5,h6{
+    font-family: 'Kaushan Script', cursive;
+}
+.modal-config-font .set-background-color > span, .modal-config-font .set-color > span{
+    height: 40px;
+    width: 40px;
+    border: 1px solid #ccc;
+    display: inline-block;
+    cursor: pointer;
+}
+
+div.set-font-size  span.set-slide_button{
+    padding: 10px;
+    cursor: pointer;
+    color: #10b591;
+}
+div.wrap-mask{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 99;
+    background-color: #333333;
+    opacity: 0.2;
+    display: none;
+}
+div.modal-config-footer div > a, div.modal-config-footer div > button{
+    color:lightblue;
+    border-radius:50%;
+    margin-left:10px;
+}
+
+.d-flex {
+   display: flex;
+   justify-content: flex-end;
+}
+
+.d-flex > a {
+   background: white;
+    padding: 0;
+    height: 30px;
+    width: 30px;
+    line-height: 40px;
+}
+.d-flex img {
+   width: 22px;
+}
+
+input[type="color"] {
+    border: none;
+    background: transparent;
+    width: 222px;
+    height: 39px;
+    padding: 0;
+}
+
+.select-font {
+   padding: 6px 4px;
+   width: 218px;
+   font-family: Arial;
+   background-color: transparent;
+   border: 1px solid #1B91DA;
+   color: #00949e;
+}
+
+.select-font option {
+   background-color: transparent;
+}
+
+.modal-config-footer {
+   text-align: right;
+}
+
+input[type=range] {
+   height: 25px;
+   -webkit-appearance: none;
+   margin: 10px 0;
+   width: 220px;
+    padding: 0;
+    background: transparent;
+}
+
+ }
+ input[type=range]:focus {
+   outline: none;
+ }
+ input[type=range]::-webkit-slider-runnable-track {
+   width: 100%;
+   height: 5px;
+   cursor: pointer;
+   animate: 0.2s;
+   box-shadow: 0px 0px 0px #000000;
+   background: #2497E3;
+   border-radius: 1px;
+   border: 0px solid #000000;
+ }
+ input[type=range]::-webkit-slider-thumb {
+   box-shadow: 0px 0px 0px #000000;
+   border: 1px solid #2497E3;
+   height: 18px;
+   width: 18px;
+   border-radius: 25px;
+   background: #A1D0FF;
+   cursor: pointer;
+   -webkit-appearance: none;
+   margin-top: -7px;
+ }
+ input[type=range]:focus::-webkit-slider-runnable-track {
+   background: #2497E3;
+ }
+ input[type=range]::-moz-range-track {
+   width: 100%;
+   height: 5px;
+   cursor: pointer;
+   animate: 0.2s;
+   box-shadow: 0px 0px 0px #000000;
+   background: #2497E3;
+   border-radius: 1px;
+   border: 0px solid #000000;
+ }
+ input[type=range]::-moz-range-thumb {
+   box-shadow: 0px 0px 0px #000000;
+   border: 1px solid #2497E3;
+   height: 18px;
+   width: 18px;
+   border-radius: 25px;
+   background: #A1D0FF;
+   cursor: pointer;
+ }
+ input[type=range]::-ms-track {
+   width: 100%;
+   height: 5px;
+   cursor: pointer;
+   animate: 0.2s;
+   background: transparent;
+   border-color: transparent;
+   color: transparent;
+ }
+ input[type=range]::-ms-fill-lower {
+   background: #2497E3;
+   border: 0px solid #000000;
+   border-radius: 2px;
+   box-shadow: 0px 0px 0px #000000;
+ }
+ input[type=range]::-ms-fill-upper {
+   background: #2497E3;
+   border: 0px solid #000000;
+   border-radius: 2px;
+   box-shadow: 0px 0px 0px #000000;
+ }
+ input[type=range]::-ms-thumb {
+   margin-top: 1px;
+   box-shadow: 0px 0px 0px #000000;
+   border: 1px solid #2497E3;
+   height: 18px;
+   width: 18px;
+   border-radius: 25px;
+   background: #A1D0FF;
+   cursor: pointer;
+ }
+ input[type=range]:focus::-ms-fill-lower {
+   background: #2497E3;
+ }
+ input[type=range]:focus::-ms-fill-upper {
+   background: #2497E3;
+ }
+
+ .show-config {
+   animation: showModelCenter .3s linear;
+ }
+
+ .hide-config {
+   animation: hideModelCenter .3s linear;
+ }

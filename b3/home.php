@@ -24,7 +24,19 @@
             foreach($arr_hobbies as $value) {
                 $str_hobbies .= " - " . $value;
             }
-        }
+		}
+		
+		if(isset($_SESSION["config"])) {
+			$bg = $_SESSION["config"]["backgroundColor"];
+			$sz = $_SESSION["config"]["fontSize"];
+			$cl = $_SESSION["config"]["color"];
+			$conf = '<script type="text/javascript">
+						document.querySelector("section.body").style.backgroundColor = "#'.$bg.'";
+						document.querySelector("section.body").style.color = "#'.$cl.'";
+						document.querySelector("section.body").style.fontSize = "'.$sz.'px";
+				</script>';
+		}
+		
     } else {
         header("location: ./signin.php");
     }
@@ -250,14 +262,68 @@
 
         <div id="setting">
             <span onclick="changeUI()" id="setting-icon"><img id="setting-pic" src="./icon/cog-solid.svg"></span>
-            <div id="btn-st" class="close">
-                <span onclick="signout()" id="signout" title="Signout"><img id="setting-pic" src="./icon/power-off-solid.svg"></span>
+            <div class="btn-st close">
+                <span onclick="signout()" id="signout" title="Signout"><img src="./icon/power-off-solid.svg"></span>
+			</div>
+			<div class="btn-st close" style="top: 47px;left: -47px;">
+                <span onclick="showConfig()" id="adjust" title="Adjust"><img src="./icon/adjust-solid.svg"></span>
+			</div>
+			<div class="btn-st close" style="top: 0px;left: -61px;">
+                <span onclick="alert(`Comming soon`)" id="notify" title="Notify"><img src="./icon/bell-solid.svg"></span>
             </div>
         </div>
 	</div>
+
+	<div class="modal-config-font" style="position: fixed;top:  50%;left:  50%;transform: translate(-50%, -50%);width: 600px;background: black;padding: 20px 40px;opacity: .8; display: none">
+		<h3><div class="modal-config-header">Custom</div></h3>
+		<div class="modal-config-body">
+			<div class="d-flex" style="margin-bottom:10px">
+				<label class="pull-left">Background-color: </label>
+				<div class="set-background-color">
+					<input type="color" id="bg-color" name="bg-color" value="#151313" onmouseover="this.title=value" onchange="onChangeConfig('section.body', 'background', value)">
+				</div>
+			</div>
+
+			<div class="d-flex" style="margin-bottom:10px">
+				<label class="pull-left">Color: </label>
+				<div class="set-color">
+					<input type="color" id="text-color" name="bg-color" value="#ffffff" onmouseover="this.title=value" onchange="onChangeConfig('section.body', 'color', value)">
+				</div>
+			</div>
+			
+			<div class="d-flex" style="margin-bottom:10px">
+				<label class="pull-left">Font: </label>
+				<div class="set-font">
+					<select class="select-font" onchange="onChangeConfig('section.body', 'font-family', value)">
+						<option value="Times New Roman" style="font-family: Times New Roman">Times New Roman</option>
+						<option value="Arial" style="font-family: Arial">Arial</option>
+						<option value="monospace" style="font-family: monospace">Monospace</option>
+						<option value="Courier New" style="font-family: Courier New">Courier New</option>
+						<option value="Sans-serif" style="font-family: Sans-serif">Sans serif</option>
+					</select>
+				</div>
+			</div>
+
+			<div class="d-flex" style="margin-bottom:10px; display: flex">
+				<label class="pull-left">Font size: </label>
+				<div class="set-font-size">
+					<input id="text-size" type="range" name="fontSize" value="16" min="1" max="30" onmouseover="this.title=value + 'px'" onchange="onChangeConfig('section.body', 'font-size', value)">
+				</div>
+			</div>
+		</div><!-- end modal body -->
+		<div class="modal-config-footer">
+			<div class="d-flex">
+				<a href="javascript:saveConfig()" id="save-config" class="btn btn-sm btn-default" title="Save change"><img src="./icon/save-regular.svg"></a>
+				<a href="javascript:defaultConfig()" id="default-config" class="btn btn-sm btn-default" title="Default"><img src="./icon/spinner-solid.svg"></a>
+				<a href="javascript:closeConfig()" class="btn btn-sm btn-default" title="Close"><img src="./icon/times-circle-solid.svg"></a>
+			</div>
+		</div>
+	</div>
+
 	<div id="notifi">
 		<?php echo $mess?>
 	</div>
+	<?php echo $conf ?>
 	<script type="text/javascript" src="./asset/js/home.js"></script>
 </body>
 </html>
