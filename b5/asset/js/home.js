@@ -41,18 +41,22 @@ let scrollToTop = () => {
 }
 
 let changeUI = () => {
-    let btnSt = document.getElementById("btn-st");
+    let btnSt = document.getElementsByClassName("btn-st");
     let wSt = document.getElementById("setting");
-    if(btnSt.classList[0] === 'close') {
+    if(btnSt[0].classList[1] === 'close') {
         document.getElementById("setting-pic").src = "./icon/cogs-solid.svg";
-        btnSt.classList.remove("close");
-        btnSt.classList.add("open");
+        Array.from(btnSt).map( bt => {
+            bt.classList.remove("close");
+            bt.classList.add("open");
+        })
         wSt.classList.add("setting-click");
         wSt.classList.remove("setting-click-again");
     } else {
         document.getElementById("setting-pic").src = "./icon/cog-solid.svg";
-        btnSt.classList.remove("open");
-        btnSt.classList.add("close");
+        Array.from(btnSt).map( bt => {
+            bt.classList.remove("open");
+            bt.classList.add("close");
+        })
         wSt.classList.remove("setting-click");
         wSt.classList.add("setting-click-again");
     }
@@ -76,6 +80,7 @@ let getProducts = () => {
                 delete(res[res.length -1]);
                 let xpr = "";
                 res.map( (pr, index) => {
+                    console.log(URL_PIC+'/'+pr.picture)
                     // let description = pr.description.length > 100 ? pr.description.substr(0, 100) + "..." : pr.description;
                     xpr += `<tr class="odd">
                                 <td>${pr.idProduct}</td>
@@ -151,7 +156,6 @@ let onEdit = (type, id) => {
 }
 
 let onDelete = (type, id) => {
-    // alert("Delete disabled, go to /b3/home to add/edit/delete");
     let ele = document.querySelector(`img[key='${id}']`)
     let check = window.confirm("Are you sure to delete this product?");
     if(check) {
@@ -276,5 +280,90 @@ let ajaxFind = (plainText) => {
         }
     }
     xmlhttp.open("GET", "./controllers/product/ed-product.php?role=getQuery&q=" + plainText, true);
+    xmlhttp.send();
+}
+
+let onChangeConfig = (element, styleType, value) => {
+    let eNode = document.querySelector(element);
+    console.log(value)
+    if(eNode) {
+        if(styleType === "background") {
+            eNode.style.background = value;
+        } else if(styleType === "color") {
+            eNode.style.color = value;
+        } else if(styleType === "font-family") {
+            eNode.style.fontFamily = value;
+        } else if(styleType === "font-size") {
+            eNode.style.fontSize = value + "px";
+        }
+    }
+}
+
+let defaultConfig = () => {
+    document.querySelector("section.body").style = "";
+    document.getElementById("bg-color").value = "#151313"
+    document.getElementById("text-color").value = "#ffffff"
+    document.getElementById("text-size").value = "16px";
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if(this.status === 200 && this.readyState === 4) {
+            let res = JSON.parse(this.response);
+            let mess = `<div id=show-message class="show-mess">
+                                <div class="wrap-mess">
+                                    <div class="mess">
+                                        <p class="success">${res.message}</p>
+                                    </div>
+                                    <div class="close-mess" onclick="closeBox()">X</div>
+                                </div>
+                            </div>`;
+            document.getElementById("notifi").innerHTML = mess;
+        }
+    }
+
+    xmlhttp.open("GET", `./controllers/config.php?default=true`, true);
+    xmlhttp.send();
+}
+
+let closeConfig = () => {
+    let modelConfig = document.getElementsByClassName("modal-config-font")[0]
+    setTimeout( () => {
+        modelConfig.classList.add("hide");
+        modelConfig.classList.remove("show");
+    }, 300)
+    modelConfig.classList.add("hide-config");
+    modelConfig.classList.remove("show-config");
+}
+ 
+let showConfig = () => {
+    let modelConfig = document.getElementsByClassName("modal-config-font")[0];
+    modelConfig.classList.remove("hide");
+    modelConfig.classList.remove("hide-config");
+    modelConfig.classList.add("show");
+    modelConfig.classList.add("show-config");
+}
+
+let saveConfig = () => {
+    let confBg = document.getElementById("bg-color").value.replace("#", "");
+    let confCl = document.getElementById("text-color").value.replace("#", "");
+    let confSz = document.getElementById("text-size").value;
+
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+        if(this.status === 200 && this.readyState === 4) {
+            let res = JSON.parse(this.response);
+            let mess = `<div id=show-message class="show-mess">
+                                <div class="wrap-mess">
+                                    <div class="mess">
+                                        <p class="success">${res.message}</p>
+                                    </div>
+                                    <div class="close-mess" onclick="closeBox()">X</div>
+                                </div>
+                            </div>`;
+            document.getElementById("notifi").innerHTML = mess;
+        }
+    }
+
+    xmlhttp.open("GET", `./controllers/config.php?confBg=${confBg}&confCl=${confCl}&confSz=${confSz}`, true);
     xmlhttp.send();
 }

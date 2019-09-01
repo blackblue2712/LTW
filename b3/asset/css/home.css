@@ -389,11 +389,11 @@ tr
    width: 36px;
    height: 36px;
    transition: .5s;
+   background: #aeaeae;
 }
 
 .btn-st:hover img {
-    background: #aeaeae;
-    border-radius: 50%;
+    background: #24262f
 }
 
 @keyframes animate {
@@ -907,3 +907,17 @@ input[type=range] {
  .hide-config {
    animation: hideModelCenter .3s linear;
  }
+
+ #requirements, #popup {
+   position: fixed;
+    top: 198px;
+    right: 20px;
+    width: 245px;
+    padding: 10px;
+    z-index: 9999;
+    background: #141212;
+    color: white;
+    border-radius: 5px;
+    opacity: .8;
+    display: none;
+}

@@ -69,10 +69,6 @@ let signout = () => {
     }
 }
 
-let adjust = () => {
-
-}
-
 let getProducts = () => {
     let wrapList = document.getElementById("wrap-table");
     let xmlhttp = new XMLHttpRequest();
@@ -84,10 +80,11 @@ let getProducts = () => {
                 delete(res[res.length -1]);
                 let xpr = "";
                 res.map( (pr, index) => {
+                    console.log(URL_PIC+'/'+pr.picture)
                     // let description = pr.description.length > 100 ? pr.description.substr(0, 100) + "..." : pr.description;
                     xpr += `<tr class="odd">
                                 <td>${pr.idProduct}</td>
-                                <td>${pr.name}</td>
+                                <td onmouseover="popupOpen(event, '${URL_PIC+'/'+pr.picture}')" onmouseleave="popupLeave(event)">${pr.name}</td>
                                 <td>${pr.price}</td>
                                 <td><img src="${URL_PIC+'/'+pr.picture}" width=70></td>
                                 <td><img src='./icon/edit.png' width=30 style="cursor: pointer" onclick="onEdit('product',${pr.idProduct})"></td>
@@ -215,6 +212,76 @@ let onDetail = (type, id) => {
 
     document.getElementById("form-detail").classList.add("show");
     document.getElementById("form-detail").classList.remove("hide");
+}
+
+let popupOpen = (e, src) => {
+    setTimeout( () => {
+        let ele = document.getElementById('popup');
+        ele.classList.add("show");
+        ele.classList.remove("hide");
+        ele.style.top = e.clientY - 100 + "px";
+        ele.style.left = e.clientX + 60 + "px";
+        ele.innerHTML = `<img src=${src}  style="max-width: 300px"/>`;
+    }, 1)
+}
+
+let popupLeave = e => {
+    console.log("leave")
+    let ele = document.getElementById('popup');
+    ele.classList.add("hide");
+    ele.classList.remove("show");
+}
+
+let ajaxFind = (plainText) => {
+    let wrapList = document.getElementById("wrap-table");
+    let xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+        if(this.readyState === 4 && this.status === 200) {
+            if(wrapList) {
+                console.log(this.response)
+                let res = JSON.parse(this.response);
+                let URL_PIC = res[res.length -1].URL_PIC;
+                delete(res[res.length -1]);
+                let xpr = "";
+                res.map( (pr, index) => {
+                    console.log(URL_PIC+'/'+pr.picture)
+                    // let description = pr.description.length > 100 ? pr.description.substr(0, 100) + "..." : pr.description;
+                    xpr += `<tr class="odd">
+                                <td>${pr.idProduct}</td>
+                                <td onmouseover="popupOpen(event, '${URL_PIC+'/'+pr.picture}')" onmouseleave="popupLeave(event)">${pr.name}</td>
+                                <td>${pr.price}</td>
+                                <td><img src="${URL_PIC+'/'+pr.picture}" width=70></td>
+                                <td><img src='./icon/edit.png' width=30 style="cursor: pointer" onclick="onEdit('product',${pr.idProduct})"></td>
+                                <td><img key=${pr.idProduct} src='./icon/delete.png' width=30 style="cursor: pointer" onclick="onDelete('product',${pr.idProduct})"></td>
+                                <td><img key-detail=${pr.idProduct} src="./icon/eye-slash-solid.svg" width=30 style="cursor: pointer" onclick="onDetail('product',${pr.idProduct})"></td>
+                            </tr>`;
+                })
+                let xhtml = `<table class="table-list">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%;">ID</th>
+                                        <th style="width: 38%;">Name</th>
+                                        <th style="width: 27%;">Price</th>
+                                        <th style="width: 15%;">Picture</th>
+                                        <th style="width: 5%;">Edit</th>
+                                        <th style="width: 5%;">Delete</th>
+                                        <th style="width: 5%;">Detail</th>
+                                        
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                    ${xpr}
+                                </tbody>
+                            </table>`;
+
+                setTimeout( () => {
+                    wrapList.innerHTML = xhtml;
+                },500);
+            }
+        }
+    }
+    xmlhttp.open("GET", "./controllers/product/ed-product.php?role=getQuery&q=" + plainText, true);
+    xmlhttp.send();
 }
 
 let onChangeConfig = (element, styleType, value) => {

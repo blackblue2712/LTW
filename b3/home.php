@@ -153,7 +153,7 @@
 									</div>
 									<div class="model-body-right">
 										<div id="list">
-											<h3>List products</h3>
+											<h3>List products <input style="margin-left: 20px" type="text" placeholder="Type to find ..." oninput="ajaxFind(value)"></h3>
 											<div id="wrap-table">
 												<!-- AJAX LOADED -->
 											</div>
@@ -273,7 +273,6 @@
             </div>
         </div>
 	</div>
-
 	<div class="modal-config-font" style="position: fixed;top:  50%;left:  50%;transform: translate(-50%, -50%);width: 600px;background: black;padding: 20px 40px;opacity: .8; display: none">
 		<h3><div class="modal-config-header">Custom</div></h3>
 		<div class="modal-config-body">
@@ -319,9 +318,10 @@
 			</div>
 		</div>
 	</div>
-
 	<div id="notifi">
 		<?php echo $mess?>
+	</div>
+	<div id="popup">
 	</div>
 	<?php echo $conf ?>
 	<script type="text/javascript" src="./asset/js/home.js"></script>
